@@ -1,9 +1,10 @@
 // lib/main.dart
-import 'package:corses_dio/views/home_page.dart';
-import 'package:corses_dio/views/product_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/cart_controller.dart';
+import 'views/home_page.dart';
+import 'views/product_detail_page.dart';
+import './views/tsest.dart'; // تأكد من أن الملف والصفحة بنفس الاسم
 
 void main() {
   // Initialize CartController
@@ -20,13 +21,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: HomePage(), // تأكد من كتابة اسم الصفحة بشكل صحيح
       getPages: [
+        GetPage(name: '/test', page: () => testpage()),
         GetPage(
             name: '/product-detail',
             page: () => ProductDetailPage(product: Get.arguments)),
       ],
-      initialRoute: '/',
+      initialRoute: '/test',
     );
   }
 }

@@ -1,4 +1,5 @@
 // lib/pages/product_page.dart
+import 'package:corses_dio/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/product_controller.dart';
@@ -26,6 +27,29 @@ class ProductPage extends StatelessWidget {
               onChanged: (value) => controller.updateSearchQuery(value),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                ElevatedButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color.fromARGB(
+                            255, 231, 239, 232)), // اللون الافتراضي
+                  ),
+                  onPressed: () {
+                    // مثال لاستخدام Get لتوجيه المستخدم إلى صفحة جديدة
+                    //Get.to(() => ShaheenPage())//
+                  },
+                  icon: const Icon(
+                    Icons.next_plan,
+                    grade: 10,
+                  ),
+                  label: Text('shaheen'),
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: Obx(() {
               if (controller.isLoading.value) {
@@ -39,15 +63,11 @@ class ProductPage extends StatelessWidget {
                     final product = controller.filteredProducts[index];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetailPage(product: product),
-                          ),
-                        );
+                        Get.to(() => ProductDetailPage(product: product));
                       },
                       child: Card(
-                        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        margin:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                         elevation: 4,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
@@ -62,12 +82,15 @@ class ProductPage extends StatelessWidget {
                                   image: DecorationImage(
                                     image: product.image.isNotEmpty
                                         ? NetworkImage(product.image)
-                                        : AssetImage('assets/imgs/rz.jpg') as ImageProvider,
+                                        : AssetImage('assets/imgs/rz.jpg')
+                                            as ImageProvider,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                                 child: product.image.isEmpty
-                                    ? Center(child: Icon(Icons.image_not_supported, color: Colors.grey))
+                                    ? Center(
+                                        child: Icon(Icons.image_not_supported,
+                                            color: Colors.grey))
                                     : null,
                               ),
                               SizedBox(width: 16),
@@ -77,7 +100,7 @@ class ProductPage extends StatelessWidget {
                                   children: [
                                     Text(
                                       product.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black87,
@@ -87,7 +110,7 @@ class ProductPage extends StatelessWidget {
                                     SizedBox(height: 8),
                                     Text(
                                       product.description,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.black54,
                                       ),
@@ -97,7 +120,7 @@ class ProductPage extends StatelessWidget {
                                     SizedBox(height: 8),
                                     Text(
                                       '\$${product.price}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.green,

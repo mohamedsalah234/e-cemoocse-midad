@@ -1,7 +1,8 @@
 // lib/pages/home_page.dart
+import 'package:corses_dio/views/tsest.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'product_page.dart';
+import '../views/Product_page.dart';
 import 'cart_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +14,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     ProductPage(),
     CartPage(),
+    testpage(),
   ];
 
   int _selectedIndex = 0;
@@ -36,6 +38,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'test',
           ),
         ],
         currentIndex: _selectedIndex,

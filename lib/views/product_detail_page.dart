@@ -67,23 +67,25 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 260,
+                      width: 270,
                     ),
-                    IconButton(
-                      color: Color.fromARGB(255, 164, 57, 8),
-                      icon: Icon(Icons.shopping_cart),
-                      onPressed: () {
-                        cartController.addToCart(
-                          CartItem(
-                            id: product.id,
-                            name: product.name,
-                            image: product.image,
-                            price: product.price,
-                          ),
-                        );
-                        Get.snackbar('Added to Cart',
-                            '${product.name} has been added to the cart');
-                      },
+                    Expanded(
+                      child: IconButton(
+                        color: Color.fromARGB(255, 164, 57, 8),
+                        icon: Icon(Icons.shopping_cart),
+                        onPressed: () {
+                          cartController.addToCart(
+                            CartItem(
+                              id: product.id,
+                              name: product.name,
+                              image: product.image,
+                              price: product.price,
+                            ),
+                          );
+                          Get.snackbar('Added to Cart',
+                              '${product.name} has been added to the cart');
+                        },
+                      ),
                     ),
                   ],
                 ),
