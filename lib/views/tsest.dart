@@ -10,14 +10,16 @@ class testpage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: Center(
-        child: Text(
-          'Store Home',
-          style: TextStyle(
+        title: Center(
+          child: Text(
+            'Store Home',
+            style: TextStyle(
               color: Color.fromARGB(255, 6, 84, 139),
-              fontWeight: FontWeight.bold),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-      )),
+      ),
       body: Column(
         children: [
           Padding(
@@ -39,15 +41,17 @@ class testpage extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Container(
                 decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(255, 15, 83, 129)),
-                    borderRadius: BorderRadius.circular(15)),
+                  border: Border.all(color: Color.fromARGB(255, 15, 83, 129)),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: CarouselSlider(
                   options: CarouselOptions(
                     pageSnapping: true,
-                    height: 190.0,
+                    height: 170.0,
                     autoPlay: true,
                     enlargeCenterPage: true,
                   ),
+                  
                   items: controller.products.isNotEmpty
                       ? controller.products.map((product) {
                           return Builder(
@@ -55,8 +59,10 @@ class testpage extends StatelessWidget {
                               return Container(
                                 width: MediaQuery.of(context).size.width,
                                 margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                child: Image.network(product['thumbnail'],
-                                    fit: BoxFit.cover),
+                                child: Image.network(
+                                  product['thumbnail'],
+                                  fit: BoxFit.cover,
+                                ),
                               );
                             },
                           );
@@ -74,32 +80,88 @@ class testpage extends StatelessWidget {
                       itemCount: controller.products.length,
                       itemBuilder: (context, index) {
                         final product = controller.products[index];
-                        return Card(
-                          color: const Color.fromARGB(255, 45, 104, 134),
-                          shadowColor: const Color.fromARGB(31, 193, 21, 21),
+                        return Container(
                           margin:
                               EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                          elevation: 4,
-                          child: ListTile(
-                            title: Text(
-                              product['title'],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(
-                              product['description'],
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            leading: Image.network(
-                              product['thumbnail'],
-                              fit: BoxFit.cover,
-                              width: 80,
-                              height: 80,
-                            ),
-                            trailing: Text(
-                              '\$${product['price']}',
-                              style: TextStyle(color: Colors.white),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 45, 104, 134),
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 27, 2, 2)
+                                    .withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 5),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Image
+                                Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                      image: NetworkImage(product['thumbnail']),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  child: product['thumbnail'] == null ||
+                                          product['thumbnail'].isEmpty
+                                      ? Center(
+                                          child: Icon(
+                                            Icons.image_not_supported,
+                                            color: Colors.grey,
+                                          ),
+                                        )
+                                      : null,
+                                ),
+                                SizedBox(width: 16),
+                                // Text content
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        product['title'],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        product['description'],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        '\$${product['price']}',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         );

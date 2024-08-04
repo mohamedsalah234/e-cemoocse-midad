@@ -28,4 +28,6 @@ class Product {
           '$pathphoto', // استخدام صورة افتراضية عبر الإنترنت إذا كانت الصورة غير موجودة
     );
   }
+
+  get discount => null;
 }

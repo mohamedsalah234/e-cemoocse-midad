@@ -90,7 +90,8 @@ class ProductPage extends StatelessWidget {
                                 child: product.image.isEmpty
                                     ? Center(
                                         child: Icon(Icons.image_not_supported,
-                                            color: Colors.grey))
+                                            color: const Color.fromARGB(
+                                                255, 193, 22, 22)))
                                     : null,
                               ),
                               SizedBox(width: 16),
