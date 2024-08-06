@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../controllers/test_controller.dart';
+import 'splash.dart';
 
 class testpage extends StatelessWidget {
   @override
