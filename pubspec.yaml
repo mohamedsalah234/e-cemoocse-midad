@@ -28,6 +28,7 @@ flutter:
 
   assets:
     - assets/imgs/
+    - assets/animation/
 
   fonts:
     - family: Lalezar

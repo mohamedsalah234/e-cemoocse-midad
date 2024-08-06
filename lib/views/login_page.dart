@@ -34,8 +34,8 @@ class Login extends StatelessWidget {
                     fontWeight: FontWeight.w900),
               )),
               // Load a Lottie file from your assets
-              Lottie.network(
-                'https://lottie.host/11e31992-2e7e-4165-b710-f160c8f8bca3/fIirUpiUgG.json',
+              Lottie.asset(
+                'assets/animation/splash.json',
                 height: 200,
                 fit: BoxFit.cover,
               ),

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       home: HomePage(), // تأكد من كتابة اسم الصفحة بشكل صحيح
       getPages: [
         GetPage(name: '/NewshaPage', page: () => NewshaPage()),
-         GetPage(name: '/spash', page: () => spashcreen()),
+        GetPage(name: '/spash', page: () => SplashScreen()),
         GetPage(name: '/product', page: () => ProductPage()),
         GetPage(name: '/apiPage', page: () => MidadPage()),
         GetPage(name: '/test', page: () => testpage()),
