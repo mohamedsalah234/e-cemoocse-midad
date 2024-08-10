@@ -7,6 +7,7 @@ import 'package:corses_dio/views/newsha_page.dart';
 import 'package:corses_dio/views/tsest.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import '../views/cardhome.dart';
 
 import '../views/cart_page.dart';
 
@@ -18,10 +19,11 @@ class HomeController extends GetxController {
   }
 
   final List<Widget> pages = [
-    ProductPage(),
+    FullWidthCardWithImage(),
     CartPage(),
     testpage(),
     MidadPage(),
-    NewshaPage(),
   ];
+
+  static get product => null;
 }

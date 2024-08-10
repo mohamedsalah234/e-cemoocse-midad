@@ -1,21 +1,17 @@
 import 'dart:convert';
-import 'package:corses_dio/models/cartmodel.dart';
 import 'package:http/http.dart' as http;
 import '../models/product.dart';
 
 class ProductService {
-  final String baseUrl = 'https://dummyjson.com/products';
+  final String _baseUrl = 'https://dummyjson.com/products';
 
   Future<List<Product>> fetchProducts() async {
     try {
-      final response = await http.get(Uri.parse(baseUrl));
-
+      final response = await http.get(Uri.parse(_baseUrl));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        final products = (data['products'] as List)
-            .map((item) => Product.fromJson(item))
-            .toList();
-        return products;
+        final List<dynamic> productsJson = data['products'];
+        return productsJson.map((json) => Product.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load products');
       }
@@ -24,4 +20,3 @@ class ProductService {
     }
   }
 }
-

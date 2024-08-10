@@ -1,11 +1,10 @@
-// lib/pages/home_page.dart
-import 'package:corses_dio/controllers/homecontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/homecontroller.dart';
 import '../views/Product_page.dart';
 import '../views/cart_page.dart';
-import '../views/tsest.dart';
-import 'midadpage.dart';
+import '../views/favorites_page.dart';
+import '../views/profile_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -15,27 +14,31 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Obx(() => controller.pages[controller.selectedIndex.value]),
       bottomNavigationBar: Obx(() => BottomNavigationBar(
-            selectedItemColor: Color.fromARGB(255, 189, 175, 212),
-            backgroundColor: Color.fromARGB(255, 154, 196, 17),
-            items: const [
+            selectedItemColor: Colors.deepPurple,
+            unselectedItemColor: Colors.grey[600],
+            backgroundColor: Colors.white,
+            elevation: 10,
+            type: BottomNavigationBarType.fixed,
+            items: [
               BottomNavigationBarItem(
-                backgroundColor: Color.fromARGB(255, 44, 9, 127),
-                icon: Icon(Icons.shop),
-                label: 'Products',
+                icon: Icon(Icons.home),
+                label: 'Home',
+                backgroundColor: Colors.white,
               ),
               BottomNavigationBarItem(
-                backgroundColor: Color.fromRGBO(45, 104, 134, 1.0),
                 icon: Icon(Icons.shopping_cart),
                 label: 'Cart',
+                backgroundColor: Colors.white,
               ),
               BottomNavigationBarItem(
-                backgroundColor: Color.fromRGBO(19, 44, 57, 1.0),
-                icon: Icon(Icons.list),
-                label: 'Test',
+                icon: Icon(Icons.favorite),
+                label: 'Favorites',
+                backgroundColor: Colors.white,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.production_quantity_limits),
-                label: 'cartPage',
+                icon: Icon(Icons.person),
+                label: 'Profile',
+                backgroundColor: Colors.white,
               ),
             ],
             currentIndex: controller.selectedIndex.value,

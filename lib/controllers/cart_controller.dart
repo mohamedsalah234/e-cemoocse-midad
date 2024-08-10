@@ -1,4 +1,3 @@
-// lib/controllers/cart_controller.dart
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -41,9 +40,14 @@ class CartController extends GetxController {
     if (cartDataString != null) {
       final List<dynamic> cartDataJson = jsonDecode(cartDataString);
       final List<CartItem> loadedCartItems = cartDataJson
-          .map((itemJson) => CartItem.fromJson(itemJson as Map<String, dynamic>))
+          .map(
+              (itemJson) => CartItem.fromJson(itemJson as Map<String, dynamic>))
           .toList();
       cartItems.assignAll(loadedCartItems);
     }
+  }
+
+  double get totalPrice {
+    return cartItems.fold(0.0, (sum, item) => sum + item.price);
   }
 }

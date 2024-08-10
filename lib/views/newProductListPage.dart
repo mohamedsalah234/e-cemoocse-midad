@@ -1,12 +1,13 @@
+import 'package:corses_dio/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/test_controller.dart';
-import 'splash.dart';
+import '../controllers/pnew_cont.dart';
+import 'pnewapidiles.dart';
 
-class testpage extends StatelessWidget {
+class NewProductListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final testController controller = Get.put(testController());
+    final nooProductController controller = Get.find<nooProductController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -16,20 +17,21 @@ class testpage extends StatelessWidget {
             Icon(color: Colors.white, Icons.shopping_bag_outlined, size: 28),
             SizedBox(width: 8),
             Text(
-              'Store Home',
+              'SuperShop',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24.0,
+                fontSize: 24.0, // حجم الخط الكبير لجذب الانتباه
                 fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
+                fontStyle: FontStyle.italic, // خط مائل لجاذبية أكبر
               ),
             ),
           ],
         ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(151, 104, 9, 96),
-        elevation: 10.0,
-        shadowColor: Colors.purpleAccent,
+        centerTitle: true, // توسيط العنوان
+        backgroundColor:
+            const Color.fromARGB(151, 104, 9, 96), // لون خلفية جذاب
+        elevation: 10.0, // إضافة ظل أسفل الـ AppBar
+        shadowColor: Colors.purpleAccent, // لون ظل الـ AppBar
         actions: [
           IconButton(
             icon: Icon(Icons.favorite_border, color: Colors.white),
@@ -38,30 +40,29 @@ class testpage extends StatelessWidget {
             },
           ),
         ],
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false, // إلغاء زر الرجوع الافتراضي
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
-        } else if (controller.products.isEmpty) {
-          return Center(child: Text("No products available."));
+        } else if (controller.errorMessage.value.isNotEmpty) {
+          return Center(child: Text(controller.errorMessage.value));
         } else {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-                childAspectRatio: 0.75,
+                crossAxisCount: 2, // عدد العناصر في كل صف
+                crossAxisSpacing: 8.0, // المسافة الأفقية بين العناصر
+                mainAxisSpacing: 8.0, // المسافة الرأسية بين العناصر
+                childAspectRatio: 0.75, // نسبة العرض إلى الارتفاع لكل عنصر
               ),
               itemCount: controller.products.length,
               itemBuilder: (context, index) {
                 final product = controller.products[index];
                 return GestureDetector(
                   onTap: () {
-                    // فتح صفحة تفاصيل المنتج
-                    Get.to(() => SplashScreen()); // أو صفحة أخرى حسب الحاجة
+                    Get.to(() => ssProductDetailPage(product: product));
                   },
                   child: Card(
                     elevation: 6.0,
@@ -78,7 +79,7 @@ class testpage extends StatelessWidget {
                                 borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(15.0)),
                                 child: Image.network(
-                                  product['thumbnail'],
+                                  product.thumbnail,
                                   fit: BoxFit.cover,
                                   width: double.infinity,
                                 ),
@@ -90,9 +91,9 @@ class testpage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    product['title'].length > 11
-                                        ? '${product['title'].substring(0, 11)}...'
-                                        : product['title'],
+                                    product.title.length > 11
+                                        ? '${product.title.substring(0, 11)}...'
+                                        : product.title,
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
@@ -102,7 +103,7 @@ class testpage extends StatelessWidget {
                                   ),
                                   SizedBox(height: 4.0),
                                   Text(
-                                    '\$${product['price']}',
+                                    '\$${product.price.toString()}',
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       color: Colors.green,
@@ -147,7 +148,7 @@ class testpage extends StatelessWidget {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pop(context); // الرجوع إلى الشاشة السابقة
         },
         child: Icon(color: Colors.white, Icons.arrow_back),
         backgroundColor: const Color.fromARGB(255, 113, 5, 133),

@@ -1,148 +1,39 @@
-class ProductListResponse {
-  bool? status;
-  String? message;
-  ProductPageData? data;
+// lib/models.dart
 
-  ProductListResponse({this.status, this.message, this.data});
+class BannerModel {
+  final String imageUrl;
 
-  factory ProductListResponse.fromJson(Map<String, dynamic> json) {
-    return ProductListResponse(
-      status: json['status'],
-      message: json['message'],
-      data:
-          json['data'] != null ? ProductPageData.fromJson(json['data']) : null,
+  BannerModel({required this.imageUrl});
+
+  factory BannerModel.fromJson(Map<String, dynamic> json) {
+    return BannerModel(
+      imageUrl: json['image'] ?? '', // تعامل مع null
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
   }
 }
 
-class ProductPageData {
-  int? currentPage;
-  List<ProductDetails>? products;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
-  String? nextPageUrl;
-  String? path;
-  int? perPage;
-  String? prevPageUrl;
-  int? to;
-  int? total;
+class ProductModel {
+  final String image;
+  final String name;
+  final double price;
+  final double oldPrice;
+  final int discount;
 
-  ProductPageData({
-    this.currentPage,
-    this.products,
-    this.firstPageUrl,
-    this.from,
-    this.lastPage,
-    this.lastPageUrl,
-    this.nextPageUrl,
-    this.path,
-    this.perPage,
-    this.prevPageUrl,
-    this.to,
-    this.total,
+  ProductModel({
+    required this.image,
+    required this.name,
+    required this.price,
+    required this.oldPrice,
+    required this.discount,
   });
 
-  factory ProductPageData.fromJson(Map<String, dynamic> json) {
-    return ProductPageData(
-      currentPage: json['current_page'],
-      products: (json['data'] as List)
-          .map((i) => ProductDetails.fromJson(i))
-          .toList(),
-      firstPageUrl: json['first_page_url'],
-      from: json['from'],
-      lastPage: json['last_page'],
-      lastPageUrl: json['last_page_url'],
-      nextPageUrl: json['next_page_url'],
-      path: json['path'],
-      perPage: json['per_page'],
-      prevPageUrl: json['prev_page_url'],
-      to: json['to'],
-      total: json['total'],
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      image: json['image'] ?? '',
+      name: json['name'] ?? 'No Name',
+      price: json['price']?.toDouble() ?? 0.0,
+      oldPrice: json['old_price']?.toDouble() ?? 0.0,
+      discount: json['discount'] ?? 0,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['current_page'] = this.currentPage;
-    data['data'] = this.products?.map((v) => v.toJson()).toList();
-    data['first_page_url'] = this.firstPageUrl;
-    data['from'] = this.from;
-    data['last_page'] = this.lastPage;
-    data['last_page_url'] = this.lastPageUrl;
-    data['next_page_url'] = this.nextPageUrl;
-    data['path'] = this.path;
-    data['per_page'] = this.perPage;
-    data['prev_page_url'] = this.prevPageUrl;
-    data['to'] = this.to;
-    data['total'] = this.total;
-    return data;
-  }
-}
-
-class ProductDetails {
-  int? id;
-  double? price;
-  double? oldPrice;
-  int? discount;
-  String? image;
-  String? name;
-  String? description;
-  List<String>? images;
-  bool? inFavorites;
-  bool? inCart;
-
-  ProductDetails({
-    this.id,
-    this.price,
-    this.oldPrice,
-    this.discount,
-    this.image,
-    this.name,
-    this.description,
-    this.images,
-    this.inFavorites,
-    this.inCart,
-  });
-
-  factory ProductDetails.fromJson(Map<String, dynamic> json) {
-    return ProductDetails(
-      id: json['id'],
-      price: json['price'],
-      oldPrice: json['old_price'],
-      discount: json['discount'],
-      image: json['image'],
-      name: json['name'],
-      description: json['description'],
-      images: List<String>.from(json['images']),
-      inFavorites: json['in_favorites'],
-      inCart: json['in_cart'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['id'] = this.id;
-    data['price'] = this.price;
-    data['old_price'] = this.oldPrice;
-    data['discount'] = this.discount;
-    data['image'] = this.image;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['images'] = this.images;
-    data['in_favorites'] = this.inFavorites;
-    data['in_cart'] = this.inCart;
-    return data;
   }
 }
